@@ -1,3 +1,5 @@
+ARG BASE_VERSION=latest
+
 FROM ruby:3.0.1-alpine3.13 AS base
 
 ARG RAILS_ROOT=/app
@@ -17,7 +19,7 @@ RUN mkdir -p $RAILS_ROOT && chown appuser:appgroup $RAILS_ROOT
 USER appuser
 
 ############### Build step ###############
-FROM base AS build-env
+FROM ghcr.io/duderamos/vigilant-broccoli:base-${BASE_VERSION} AS build-env
 
 ARG RAILS_ROOT=/app
 ARG BUILD_PACKAGES="build-base curl-dev git"
@@ -59,7 +61,7 @@ RUN mkdir -p $RAILS_ROOT && chown appuser:appgroup $RAILS_ROOT
 USER appuser
 
 ############### Dev step ###############
-FROM base AS dev
+FROM ghcr.io/duderamos/vigilant-broccoli:base-${BASE_VERSION} AS dev
 
 ARG RAILS_ROOT=/app
 ARG BUILD_PACKAGES="build-base curl-dev git"
@@ -84,7 +86,7 @@ EXPOSE 3000
 CMD bin/rails server -b 0.0.0.0
 
 ############### Prod step ###############
-FROM base AS web
+FROM ghcr.io/duderamos/vigilant-broccoli:base-${BASE_VERSION} AS web
 
 ARG RAILS_ROOT=/app
 ENV RAILS_ENV=production
