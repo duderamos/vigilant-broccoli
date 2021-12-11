@@ -77,7 +77,9 @@ RUN apk add --no-cache $BUILD_PACKAGES $DEV_PACKAGES
 
 COPY Gemfile* ${RAILS_ROOT}/
 
-RUN bundle install
+RUN bundle install -j4 --retry 3 \
+    && bundle config --local path vendor/bundle \
+    && bundle install
 
 ENTRYPOINT ["./entrypoint.sh"]
 

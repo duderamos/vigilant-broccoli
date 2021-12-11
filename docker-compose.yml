@@ -21,8 +21,6 @@ services:
       - "3000:3000"
     volumes:
       - ".:/app"
-      - gem_home:/usr/local/bundle
-      - node_modules_home:/app/node_modules
   postgres:
     image: postgres:alpine3.14
     volumes:
@@ -30,6 +28,4 @@ services:
     environment:
       POSTGRES_PASSWORD: password
 volumes:
-  gem_home:
-  node_modules_home:
   db_data:
