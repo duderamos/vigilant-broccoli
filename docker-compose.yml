@@ -1,9 +1,20 @@
 version: "3.9"
 services:
+  base:
+    image: ghcr.io/duderamos/vigilant-broccoli:base-${BASE_VERSION}
+    build:
+      context: .
+      target: base
+      args:
+        BUILDKIT_INLINE_CACHE: 1
+      cache_from:
+        - ghcr.io/duderamos/vigilant-broccoli:base-${BASE_VERSION}
   web-dev:
     build:
       context: .
       target: dev
+      args:
+        BASE_VERSION: ${BASE_VERSION}
     depends_on:
       - postgres
     ports:
