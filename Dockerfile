@@ -75,6 +75,8 @@ USER root
 
 RUN apk add --no-cache $BUILD_PACKAGES $DEV_PACKAGES
 
+COPY Gemfile* ${RAILS_ROOT}/
+
 RUN bundle install -j4 --retry 3 \
     && bundle install
 
