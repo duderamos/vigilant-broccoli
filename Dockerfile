@@ -1,6 +1,6 @@
 ARG BASE_VERSION=latest
 
-FROM ruby:3.0.1-alpine3.13 AS base
+FROM ruby:3.0.2-alpine3.13 AS base
 
 ARG RAILS_ROOT=/app
 ARG PACKAGES="tzdata postgresql-libs yarn nodejs"
