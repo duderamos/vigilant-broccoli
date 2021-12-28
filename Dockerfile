@@ -65,7 +65,7 @@ FROM ghcr.io/duderamos/vigilant-broccoli:base-${BASE_VERSION} AS dev
 
 ARG RAILS_ROOT=/app
 ARG BUILD_PACKAGES="build-base curl-dev git"
-ARG DEV_PACKAGES="postgresql-dev yaml-dev zlib-dev"
+ARG DEV_PACKAGES="postgresql-dev yaml-dev zlib-dev bash"
 
 ENV RAILS_ENV=development
 ENV NODE_ENV=development
