@@ -10,6 +10,8 @@ services:
       cache_from:
         - ghcr.io/duderamos/vigilant-broccoli:base-${BASE_VERSION}
   web-dev:
+    env_file:
+      - .env
     build:
       context: .
       target: dev
