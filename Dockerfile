@@ -74,9 +74,6 @@ USER root
 
 RUN apk add --no-cache $BUILD_PACKAGES $DEV_PACKAGES
 
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
-
 COPY Gemfile* ${RAILS_ROOT}/
 RUN bundle install -j4 --retry 3 \
     && bundle install
