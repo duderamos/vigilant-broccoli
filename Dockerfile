@@ -3,7 +3,7 @@ ARG BASE_VERSION=latest
 FROM ruby:3.0.2-alpine3.13 AS base
 
 ARG RAILS_ROOT=/app
-ARG PACKAGES="tzdata postgresql-libs yarn nodejs"
+ARG PACKAGES="tzdata postgresql-libs"
 
 WORKDIR $RAILS_ROOT
 
@@ -23,7 +23,7 @@ FROM ghcr.io/duderamos/vigilant-broccoli:base-${BASE_VERSION} AS build-env
 
 ARG RAILS_ROOT=/app
 ARG BUILD_PACKAGES="build-base curl-dev git"
-ARG DEV_PACKAGES="postgresql-dev yaml-dev zlib-dev"
+ARG DEV_PACKAGES="postgresql-dev yaml-dev zlib-dev yarn nodejs"
 
 ENV RAILS_ENV=production
 ENV NODE_ENV=production
@@ -65,18 +65,19 @@ FROM ghcr.io/duderamos/vigilant-broccoli:base-${BASE_VERSION} AS dev
 
 ARG RAILS_ROOT=/app
 ARG BUILD_PACKAGES="build-base curl-dev git"
-ARG DEV_PACKAGES="postgresql-dev yaml-dev zlib-dev bash"
+ARG DEV_PACKAGES="postgresql-dev yaml-dev zlib-dev yarn nodejs bash"
 
 ENV RAILS_ENV=development
 ENV NODE_ENV=development
-ENV BUNDLE_APP_CONFIG="$RAILS_ROOT/.bundle"
 
 USER root
 
 RUN apk add --no-cache $BUILD_PACKAGES $DEV_PACKAGES
 
-COPY Gemfile* ${RAILS_ROOT}/
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 
+COPY Gemfile* ${RAILS_ROOT}/
 RUN bundle install -j4 --retry 3 \
     && bundle install
 
