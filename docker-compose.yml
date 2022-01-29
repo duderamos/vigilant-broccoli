@@ -26,6 +26,7 @@ services:
       - "3000:3000"
     volumes:
       - ".:/app"
+    user: ${UID}
   postgres:
     image: postgres:alpine3.14
     volumes:
