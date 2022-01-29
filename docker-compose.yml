@@ -11,6 +11,7 @@ services:
         - ghcr.io/duderamos/vigilant-broccoli:base-${BASE_VERSION}
   web-dev:
     tty: true
+    stdin_open: true
     env_file:
       - .env
     build:
