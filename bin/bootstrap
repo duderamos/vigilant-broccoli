@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+docker-compose build web-dev
+
+docker-compose run --no-deps --rm --entrypoint "" web-dev \
+  rails new . --force -d postgresql -j esbuild -c tailwind --skip-test --skip-system-test
