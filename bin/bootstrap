@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+docker-compose build base
+
 docker-compose build web-dev
 
 [[ "$?" -eq "0" ]] && \
