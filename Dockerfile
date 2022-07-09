@@ -78,8 +78,7 @@ RUN apk add --no-cache $BUILD_PACKAGES $DEV_PACKAGES
 USER appuser
 
 COPY Gemfile* ${RAILS_ROOT}/
-RUN bundle install --retry 3 \
-    && bundle install
+RUN bundle install --retry 3
 
 ENTRYPOINT ["./entrypoint.sh"]
 
