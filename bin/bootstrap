@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
-docker compose build base web-dev
+docker compose build base
+docker compose build web-dev
 
 [[ "$?" -eq "0" ]] && \
   docker compose run --no-deps --rm --entrypoint "" web-dev \
