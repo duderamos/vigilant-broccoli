@@ -1,11 +1,9 @@
 #!/usr/bin/env sh
 
-docker-compose build base
-
-docker-compose build web-dev
+docker compose build base web-dev
 
 [[ "$?" -eq "0" ]] && \
-  docker-compose run --no-deps --rm --entrypoint "" web-dev \
+  docker compose run --no-deps --rm --entrypoint "" web-dev \
   rails new . --force -d postgresql -j esbuild -c bootstrap --skip-test --skip-system-test --skip-hotwire
 
 [[ "$?" -eq "0" ]] && \
