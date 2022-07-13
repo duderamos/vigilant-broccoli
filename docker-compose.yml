@@ -1,14 +1,15 @@
 version: "3.9"
 services:
   base:
-    image: ghcr.io/duderamos/vigilant-broccoli:base-${BASE_VERSION}
+    image: ${IMAGE_NAME}:base-${BASE_VERSION}
     build:
       context: .
       target: base
       args:
         BUILDKIT_INLINE_CACHE: 1
+        IMAGE_NAME: ${IMAGE_NAME}
       cache_from:
-        - ghcr.io/duderamos/vigilant-broccoli:base-${BASE_VERSION}
+        - ${IMAGE_NAME}:base-${BASE_VERSION}
   web-dev:
     tty: true
     stdin_open: true
@@ -19,6 +20,7 @@ services:
       target: dev
       args:
         BASE_VERSION: ${BASE_VERSION}
+        IMAGE_NAME: ${IMAGE_NAME}
     command: bin/dev
     depends_on:
       - postgres
