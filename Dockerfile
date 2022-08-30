@@ -77,6 +77,8 @@ RUN apk add --no-cache $BUILD_PACKAGES $DEV_PACKAGES
 
 USER appuser
 
+ENTRYPOINT ["./entrypoint.sh"]
+
 ############### Prod step ###############
 FROM ${IMAGE_NAME}:base-${BASE_VERSION} AS web
 
