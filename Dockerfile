@@ -77,15 +77,6 @@ RUN apk add --no-cache $BUILD_PACKAGES $DEV_PACKAGES
 
 USER appuser
 
-COPY Gemfile* ${RAILS_ROOT}/
-RUN bundle install --retry 3
-
-ENTRYPOINT ["./entrypoint.sh"]
-
-EXPOSE 3000
-
-CMD bin/rails server -b 0.0.0.0
-
 ############### Prod step ###############
 FROM ${IMAGE_NAME}:base-${BASE_VERSION} AS web
 
