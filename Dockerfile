@@ -56,8 +56,7 @@ COPY --chown=appuser:appgroup . .
 
 RUN set -a \
     && bundle exec rails assets:precompile \
-    && yarn run build \
-    && yarn run build:css
+    && yarn run build
 
 RUN rm -rf tmp/cache spec node_modules
 
